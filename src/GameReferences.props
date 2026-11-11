@@ -1,0 +1,50 @@
+<Project>
+  <!--
+    BepInExプラグイン用プロジェクトの共通設定。
+    ゲーム本体とBepInExのDLLは「コンパイル時の参照」にだけ使い、成果物へは一切コピーしない(Private=false)。
+    ゲームのDLLは再配布できないため、リポジトリにも配布物にも含めない。
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <DebugType>none</DebugType>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+    <!-- ゲーム側DLLが古い mscorlib を参照していることによる、解決済みのバージョン統合警告を抑止する -->
+    <NoWarn>$(NoWarn);CS1701;CS1702;MSB3277</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- record / init を netstandard2.1 で使うための共有ポリフィル -->
+    <Compile Include="$(MSBuildThisFileDirectory)Shared\Polyfills.cs" Link="Shared\Polyfills.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- BepInEx 本体(プラグイン基底クラス・設定・ログ)と HarmonyX(メソッドフック) -->
+    <Reference Include="BepInEx" HintPath="$(BepInExCoreDir)\BepInEx.dll" Private="false" />
+    <Reference Include="0Harmony" HintPath="$(BepInExCoreDir)\0Harmony.dll" Private="false" />
+
+    <!-- ゲーム本体のスクリプト -->
+    <Reference Include="Assembly-CSharp" HintPath="$(GameManagedDir)\Assembly-CSharp.dll" Private="false" />
+
+    <!-- Unity エンジン -->
+    <Reference Include="UnityEngine" HintPath="$(GameManagedDir)\UnityEngine.dll" Private="false" />
+    <Reference Include="UnityEngine.CoreModule" HintPath="$(GameManagedDir)\UnityEngine.CoreModule.dll" Private="false" />
+    <Reference Include="UnityEngine.UI" HintPath="$(GameManagedDir)\UnityEngine.UI.dll" Private="false" />
+    <Reference Include="UnityEngine.UIModule" HintPath="$(GameManagedDir)\UnityEngine.UIModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextRenderingModule" HintPath="$(GameManagedDir)\UnityEngine.TextRenderingModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextCoreFontEngineModule" HintPath="$(GameManagedDir)\UnityEngine.TextCoreFontEngineModule.dll" Private="false" />
+    <Reference Include="UnityEngine.TextCoreTextEngineModule" HintPath="$(GameManagedDir)\UnityEngine.TextCoreTextEngineModule.dll" Private="false" />
+    <Reference Include="UnityEngine.InputLegacyModule" HintPath="$(GameManagedDir)\UnityEngine.InputLegacyModule.dll" Private="false" />
+    <Reference Include="Unity.TextMeshPro" HintPath="$(GameManagedDir)\Unity.TextMeshPro.dll" Private="false" />
+  </ItemGroup>
+
+  <!-- 参照DLLが見つからないときは、原因と対処をはっきり伝えてビルドを止める -->
+  <Target Name="CheckGameReferences" BeforeTargets="ResolveAssemblyReferences">
+    <Error Condition="'$(GameDir)' == ''"
+           Text="ゲームのインストール先が未設定です。build\build.ps1 を実行するか、環境変数 BIOINC_GAME_DIR にインストール先を設定してください。" />
+    <Error Condition="!Exists('$(GameManagedDir)\Assembly-CSharp.dll')"
+           Text="ゲームのDLLが見つかりません: $(GameManagedDir)\Assembly-CSharp.dll (GameDir の設定を確認してください)" />
+    <Error Condition="!Exists('$(BepInExCoreDir)\BepInEx.dll')"
+           Text="BepInEx本体が見つかりません: $(BepInExCoreDir) (先に build\fetch-deps.ps1 を実行してください)" />
+  </Target>
+</Project>

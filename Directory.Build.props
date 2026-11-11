@@ -1,0 +1,30 @@
+<Project>
+  <!-- 全プロジェクト共通のビルド設定 -->
+  <PropertyGroup>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <Deterministic>true</Deterministic>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <NeutralLanguage>ja-JP</NeutralLanguage>
+    <SatelliteResourceLanguages>ja</SatelliteResourceLanguages>
+
+    <!-- 配布物のバージョン。プラグイン・パッチツール・ZIP名で共通に使う -->
+    <Version>1.0.0</Version>
+    <Authors>歌うＬＩＮＥ彼氏</Authors>
+    <Copyright>Copyright (c) 2026 歌うＬＩＮＥ彼氏</Copyright>
+    <Product>Bio Inc. Redemption 日本語化パッチ</Product>
+  </PropertyGroup>
+
+  <!-- 開発者ごとの設定(ゲームのインストール先)。build/build.ps1 が自動生成する。リポジトリには含めない -->
+  <Import Project="$(MSBuildThisFileDirectory)local.props" Condition="Exists('$(MSBuildThisFileDirectory)local.props')" />
+
+  <PropertyGroup>
+    <!-- local.props が無い場合は環境変数 BIOINC_GAME_DIR を使う -->
+    <GameDir Condition="'$(GameDir)' == '' and '$(BIOINC_GAME_DIR)' != ''">$(BIOINC_GAME_DIR)</GameDir>
+    <!-- ゲーム同梱のマネージドDLL(コンパイル時の参照専用。成果物にはコピーしない) -->
+    <GameManagedDir>$(GameDir)\BioIncRedemption_Data\Managed</GameManagedDir>
+    <!-- build/fetch-deps.ps1 が展開する BepInEx 本体 -->
+    <BepInExCoreDir>$(MSBuildThisFileDirectory)third_party\bepinex\extracted\BepInEx\core</BepInExCoreDir>
+  </PropertyGroup>
+</Project>

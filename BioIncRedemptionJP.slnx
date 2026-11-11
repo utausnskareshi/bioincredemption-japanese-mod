@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BioIncJp.Localization/BioIncJp.Localization.csproj" />
+    <Project Path="src/BioIncJp.Patcher.Core/BioIncJp.Patcher.Core.csproj" />
+    <Project Path="src/BioIncJp.Patcher/BioIncJp.Patcher.csproj" />
+    <Project Path="src/BioIncJp.Plugin/BioIncJp.Plugin.csproj" />
+  </Folder>
+</Solution>

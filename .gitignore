@@ -1,0 +1,22 @@
+# ビルド成果物
+bin/
+obj/
+dist/
+artifacts/
+*.user
+.vs/
+.idea/
+
+# ビルド時に取得する第三者配布物(BepInEx本体・フォント)。build/fetch-deps.ps1 で再取得できる
+third_party/
+
+# 開発者ごとのローカル設定(ゲームのインストール先など)
+local.props
+
+# ゲーム本体から抽出した原文など、再配布できない参照用データ
+reference/
+
+# Python の一時ファイル
+__pycache__/
+*.pyc
+.venv/

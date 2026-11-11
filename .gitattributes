@@ -1,0 +1,14 @@
+# テキストファイルの改行は Git に自動で扱わせる
+* text=auto
+
+# Windows PowerShell 5.1 は BOM 付き UTF-8 + CRLF のスクリプトを前提とするため、改行を固定する
+*.ps1 text eol=crlf
+
+# バイナリ
+*.otf binary
+*.ttf binary
+*.dll binary
+*.exe binary
+*.zip binary
+*.png binary
+*.ico binary

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    翻訳データの読み込み・重ね合わせ・検証を行う、Unityにもゲームにも依存しない純粋なライブラリ。
+    日本語化プラグイン(ゲーム内)から使う。
+  -->
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <AssemblyName>BioIncRedemptionJP.Localization</AssemblyName>
+    <RootNamespace>BioIncJp.Localization</RootNamespace>
+    <DebugType>none</DebugType>
+    <GenerateDependencyFile>false</GenerateDependencyFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- record / init を netstandard2.1 で使うための共有ポリフィル -->
+    <Compile Include="..\Shared\Polyfills.cs" Link="Shared\Polyfills.cs" />
+  </ItemGroup>
+
+</Project>

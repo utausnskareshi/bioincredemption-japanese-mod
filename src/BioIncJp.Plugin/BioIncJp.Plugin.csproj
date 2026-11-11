@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Bio Inc. Redemption 日本語化プラグイン(BepInEx 5 用)。
+    ゲームのファイルは書き換えず、実行中のメモリ上でだけ表示文字列とフォントを差し替える。
+  -->
+  <Import Project="..\GameReferences.props" />
+
+  <PropertyGroup>
+    <AssemblyName>BioIncRedemptionJP.Plugin</AssemblyName>
+    <RootNamespace>BioIncJp.Plugin</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BioIncJp.Localization\BioIncJp.Localization.csproj" />
+  </ItemGroup>
+
+  <!-- バージョン番号は Directory.Build.props の Version を唯一の出所とし、定数としてコードへ埋め込む -->
+  <Target Name="GenerateBuildInfo" BeforeTargets="CoreCompile">
+    <PropertyGroup>
+      <BuildInfoFile>$(IntermediateOutputPath)BuildInfo.g.cs</BuildInfoFile>
+    </PropertyGroup>
+    <WriteLinesToFile File="$(BuildInfoFile)" Overwrite="true" WriteOnlyWhenDifferent="true"
+                      Lines="namespace BioIncJp.Plugin { internal static class BuildInfo { public const string Version = &quot;$(Version)&quot;%3B } }" />
+    <ItemGroup>
+      <Compile Include="$(BuildInfoFile)" />
+    </ItemGroup>
+  </Target>
+
+</Project>

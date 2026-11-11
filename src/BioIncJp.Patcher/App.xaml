@@ -1,0 +1,50 @@
+<Application x:Class="BioIncJp.Patcher.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             ShutdownMode="OnExplicitShutdown">
+    <Application.Resources>
+        <!-- 配色(ゲームの画面に合わせた、暗い背景と青緑のアクセント) -->
+        <SolidColorBrush x:Key="WindowBackground" Color="#0B1820" />
+        <SolidColorBrush x:Key="PanelBackground" Color="#10252F" />
+        <SolidColorBrush x:Key="PanelBorder" Color="#1E4350" />
+        <SolidColorBrush x:Key="Accent" Color="#19E3D2" />
+        <SolidColorBrush x:Key="AccentHover" Color="#6FF5E9" />
+        <SolidColorBrush x:Key="AccentPressed" Color="#11B3A6" />
+        <SolidColorBrush x:Key="AccentText" Color="#062025" />
+        <SolidColorBrush x:Key="TextPrimary" Color="#E4F6F4" />
+        <SolidColorBrush x:Key="TextSecondary" Color="#8FB3B8" />
+        <SolidColorBrush x:Key="Warning" Color="#FFC857" />
+        <SolidColorBrush x:Key="Disabled" Color="#35525B" />
+
+        <!-- 中央の大きなボタン -->
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource Accent}" />
+            <Setter Property="Foreground" Value="{StaticResource AccentText}" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Frame" Background="{TemplateBinding Background}" CornerRadius="6">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Frame" Property="Background" Value="{StaticResource AccentHover}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Frame" Property="Background" Value="{StaticResource AccentPressed}" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Frame" Property="Background" Value="{StaticResource Disabled}" />
+                                <Setter Property="Foreground" Value="{StaticResource TextSecondary}" />
+                                <Setter Property="Cursor" Value="Arrow" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Application.Resources>
+</Application>

@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    パッチツールの中核ロジック(画面を持たない)。
+    Steam からのゲーム検出、パッチの適用・復元、導入記録の読み書きを担当する。
+    画面(WPF)から切り離してあるので、画面を出さないコマンドラインでの実行からも同じ処理を呼び出せる。
+  -->
+  <PropertyGroup>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <AssemblyName>BioIncRedemptionJP.Patcher.Core</AssemblyName>
+    <RootNamespace>BioIncJp.Patcher.Core</RootNamespace>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <!--
+      デバッグ情報(PDB)を作らない(ほかのプロジェクトと同じ設定)。
+      作ると、ビルドしたPCのフォルダのパスが DLL に記録され、配布する EXE の中に残ってしまうため。
+    -->
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+</Project>

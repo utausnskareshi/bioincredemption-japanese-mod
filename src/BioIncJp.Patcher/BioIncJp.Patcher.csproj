@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    パッチツール本体(画面つき)。
+    .NET のランタイムを同梱した単一の EXE として発行するので、利用者は何もインストールせずに実行できる。
+  -->
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>BioIncRedemptionJP</AssemblyName>
+    <RootNamespace>BioIncJp.Patcher</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <ImplicitUsings>disable</ImplicitUsings>
+
+    <!-- 発行(dotnet publish)時の設定: 64bit Windows 向け、ランタイム同梱、単一ファイル -->
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\BioIncJp.Patcher.Core\BioIncJp.Patcher.Core.csproj" />
+  </ItemGroup>
+
+</Project>
